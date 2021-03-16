@@ -4,8 +4,8 @@ import com.nextplugins.sorteios.api.Prize;
 import com.nextplugins.sorteios.utils.ColorUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -15,14 +15,14 @@ import java.util.stream.Collectors;
 
 public class PrizeParser {
 
-    public static Set<Prize> parseListSection(ConfigurationSection section) {
+    public static List<Prize> parseListSection(ConfigurationSection section) {
 
         return section.getKeys(false)
                 .stream()
                 .map(section::getConfigurationSection)
                 .filter(Objects::nonNull)
                 .map(PrizeParser::parseSection)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
     }
 

@@ -1,0 +1,6 @@
+premios:
+  premio1:
+    coloredName: '&95x Key NextPlugins'
+    commands:
+      - 'givekey @player nextplugins 5'
+      - 'give @player diamond_pickaxe'

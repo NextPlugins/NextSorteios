@@ -5,7 +5,7 @@ import com.nextplugins.sorteios.configuration.values.PrizesValue;
 import com.nextplugins.sorteios.parser.PrizeParser;
 import lombok.Getter;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Yuhtin
@@ -13,13 +13,10 @@ import java.util.Set;
  */
 public class PrizeManager {
 
-    @Getter private Set<Prize> prizes;
+    @Getter private List<Prize> prizes;
 
-    public PrizeManager init() {
-
+    public void init() {
         prizes = PrizeParser.parseListSection(PrizesValue.get(PrizesValue::prizeSection));
-        return this;
-
     }
 
 }
