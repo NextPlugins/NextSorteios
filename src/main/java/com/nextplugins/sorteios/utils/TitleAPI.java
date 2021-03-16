@@ -9,22 +9,7 @@ import java.lang.reflect.Constructor;
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
-public class TtileAPI {
-
-    @Deprecated
-    public static void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String message) {
-        sendTitle(player, fadeIn, stay, fadeOut, message, null);
-    }
-
-    @Deprecated
-    public static void sendSubtitle(Player player, int fadeIn, int stay, int fadeOut, String message) {
-        sendTitle(player, fadeIn, stay, fadeOut, null, message);
-    }
-
-    @Deprecated
-    public static void sendFullTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
-        sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
-    }
+public class TitleAPI {
 
     public static void sendPacket(Player player, Object packet) {
         try {
@@ -46,37 +31,32 @@ public class TtileAPI {
         }
     }
 
-    public static void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
+    public static void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String message) {
         try {
-            if (title != null) {
 
-                title = ColorUtils.colored(title.replaceAll("@player", player.getDisplayName()));
-                sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TIMES");
-                sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TITLE");
+            String[] split = message.split("<nl>");
+            String title = ColorUtils.colored(split[0]);
+            String subtitle = ColorUtils.colored(split[1]);
 
-            }
+            //sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TIMES");
 
-            if (subtitle != null) {
+            sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TITLE");
+            sendTitlePacket(player, fadeIn, stay, fadeOut, subtitle, "SUBTITLE");
 
-                subtitle = ColorUtils.colored(subtitle.replaceAll("@player", player.getDisplayName()));
-                sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TIMES");
-                sendTitlePacket(player, fadeIn, stay, fadeOut, subtitle, "SUBTITLE");
-
-            }
-        } catch (Exception var11) {
-            var11.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
     private static void sendTitlePacket(Player player, int fadeIn, int stay, int fadeOut, String message, String type) {
 
         try {
-            Object chatSubtitle = getNMSClass("IChatBaseComponent")
+            Object component = getNMSClass("IChatBaseComponent")
                     .getDeclaredClasses()[0]
                     .getMethod("a", String.class)
                     .invoke(null, "{\"text\":\"" + message + "\"}");
 
-            Constructor subtitleConstructor = getNMSClass("PacketPlayOutTitle")
+            Constructor constructor = getNMSClass("PacketPlayOutTitle")
                     .getConstructor(
                             getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
                             getNMSClass("IChatBaseComponent"),
@@ -85,12 +65,14 @@ public class TtileAPI {
                             Integer.TYPE
                     );
 
-            Object subtitlePacket = subtitleConstructor.newInstance(
+            Object packet = constructor.newInstance(
                     getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField(type).get(null),
-                    chatSubtitle, fadeIn, stay, fadeOut
+                    component, fadeIn, stay, fadeOut
             );
 
-            sendPacket(player, subtitlePacket);
+            if (player == null) Bukkit.getOnlinePlayers().forEach(target -> sendPacket(target, packet));
+            else sendPacket(player, packet);
+
         }catch (Exception ingored) {}
     }
 

@@ -15,6 +15,11 @@ configuration:
   time: 180
   # Jogadores online mínimos para iniciar um sorteio
   minPlayers: 30
+  # Quantas vezes irá enviar o título de sorteando
+  # antes de selecionar um vencedor
+  # Atenção: O title é enviado a cada 0.5 segundos
+  # caso coloque 20 executes, irá demorar 10 segundos para sortear
+  executes: 20
   # Som que irá tocar quando iniciar o sorteio
   # Cheque a lista de sons para sua versão do servidor
   # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html

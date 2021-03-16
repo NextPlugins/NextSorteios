@@ -24,6 +24,7 @@ public final class ConfigValue implements ConfigurationInjectable {
 
     @ConfigField("time") private int minutes;
     @ConfigField("minPlayers") private int minPlayers;
+    @ConfigField("executes") private int executes;
 
     @ConfigField("sound") private String sortingSound;
     @ConfigField("winSound") private String winSound;
