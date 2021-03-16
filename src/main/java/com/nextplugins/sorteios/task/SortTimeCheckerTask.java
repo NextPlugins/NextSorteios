@@ -2,6 +2,7 @@ package com.nextplugins.sorteios.task;
 
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.executor.SortPlayerExecutor;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -11,7 +12,7 @@ import org.bukkit.plugin.Plugin;
  * Github: https://github.com/Yuhtin
  */
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SortTimeCheckerTask implements Runnable {
 
     private final Plugin plugin;
