@@ -26,6 +26,9 @@ public final class SortTimeCheckerTask implements Runnable {
 
     @Override
     public void run() {
+
+        if (Bukkit.getOnlinePlayers().size() < ConfigValue.get(ConfigValue::minPlayers)) return;
+
         SortPlayerExecutor.createDefault(plugin, ConfigValue.get(ConfigValue::executes));
         plugin.getLogger().info("Sorteando um jogador aleatório");
     }

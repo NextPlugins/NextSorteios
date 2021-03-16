@@ -3,11 +3,15 @@ package com.nextplugins.sorteios.executor;
 import com.nextplugins.sorteios.NextSorteios;
 import com.nextplugins.sorteios.api.Prize;
 import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
+import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
 import com.nextplugins.sorteios.manager.PrizeManager;
+import com.nextplugins.sorteios.utils.MessageUtils;
+import com.nextplugins.sorteios.utils.SoundAPI;
 import com.nextplugins.sorteios.utils.TitleAPI;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -45,20 +49,6 @@ public final class SortPlayerExecutor implements Runnable {
 
             if (player == null || prize == null) return;
 
-            int time = MessagesValue.get(MessagesValue::sortedTime) / 3;
-            String message = MessagesValue.get(MessagesValue::sortedTitle).replace("@player", player.getName());
-
-            TitleAPI.sendTitle(null, time, time, time, message);
-
-            for (String command : prize.getCommands()) {
-
-                Bukkit.dispatchCommand(
-                        Bukkit.getConsoleSender(),
-                        command.replace("@player", player.getName())
-                );
-
-            }
-
             Bukkit.getPluginManager().callEvent(new SortedPlayerEvent(player, prize));
             return;
 
@@ -66,8 +56,10 @@ public final class SortPlayerExecutor implements Runnable {
 
         int time = MessagesValue.get(MessagesValue::sortingTime) / 3;
         String message = MessagesValue.get(MessagesValue::sortingTitle);
+        Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::sortingSound));
 
-        TitleAPI.sendTitle(null, time, time, time, message);
+        MessageUtils.sendSoundAndTitle(message, sound, time);
+
         ++executes;
 
     }
