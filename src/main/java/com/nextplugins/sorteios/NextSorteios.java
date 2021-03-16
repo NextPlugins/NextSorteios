@@ -1,12 +1,14 @@
 package com.nextplugins.sorteios;
 
+import com.nextplugins.sorteios.metric.MetricProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NextSorteios extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+
+        MetricProvider.of(this).setup();
 
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class Sort {
+public class Prize {
 
     private final String coloredName;
     private final List<String> commands;

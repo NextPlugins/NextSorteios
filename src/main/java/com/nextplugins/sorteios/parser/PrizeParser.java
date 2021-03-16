@@ -1,6 +1,6 @@
 package com.nextplugins.sorteios.parser;
 
-import com.nextplugins.sorteios.api.Sort;
+import com.nextplugins.sorteios.api.Prize;
 import com.nextplugins.sorteios.utils.ColorUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
  * Github: https://github.com/Yuhtin
  */
 
-public class SortParser {
+public class PrizeParser {
 
-    public static Set<Sort> parseListSection(ConfigurationSection section) {
+    public static Set<Prize> parseListSection(ConfigurationSection section) {
 
         return section.getKeys(false)
                 .stream()
                 .map(section::getConfigurationSection)
                 .filter(Objects::nonNull)
-                .map(SortParser::parseSection)
+                .map(PrizeParser::parseSection)
                 .collect(Collectors.toSet());
 
     }
-    
-    public static Sort parseSection(ConfigurationSection section) {
 
-        return Sort.builder()
+    public static Prize parseSection(ConfigurationSection section) {
+
+        return Prize.builder()
                 .coloredName(ColorUtils.colored(section.getString("coloredName")))
                 .commands(section.getStringList("commands"))
                 .build();
