@@ -1,7 +1,8 @@
 package com.nextplugins.sorteios.configuration.registry;
 
 import com.henryfabio.minecraft.configinjector.bukkit.injector.BukkitConfigurationInjector;
-import com.nextplugins.sorteios.configuration.values.MessageValue;
+import com.nextplugins.sorteios.configuration.values.ConfigValue;
+import com.nextplugins.sorteios.configuration.values.MessagesValue;
 import com.nextplugins.sorteios.configuration.values.PrizesValue;
 import lombok.Data;
 import org.bukkit.plugin.Plugin;
@@ -11,17 +12,18 @@ public final class ConfigurationRegistry {
 
     private final Plugin plugin;
 
-    public void register() {
+    public void setup() {
         BukkitConfigurationInjector configurationInjector = new BukkitConfigurationInjector(plugin);
 
         configurationInjector.saveDefaultConfiguration(
                 plugin,
-                "messages.yml",
+                "config.yml",
                 "inventories.yml"
         );
 
         configurationInjector.injectConfiguration(
-                MessageValue.instance(),
+                ConfigValue.instance(),
+                MessagesValue.instance(),
                 PrizesValue.instance()
         );
     }

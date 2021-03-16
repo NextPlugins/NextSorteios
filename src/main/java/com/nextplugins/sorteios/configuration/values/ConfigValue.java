@@ -1,5 +1,6 @@
 package com.nextplugins.sorteios.configuration.values;
 
+import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigSection;
 import com.henryfabio.minecraft.configinjector.common.annotations.TranslateColors;
@@ -14,14 +15,20 @@ import java.util.function.Function;
 @Getter
 @TranslateColors
 @Accessors(fluent = true)
-@ConfigSection("messages")
-@ConfigFile("messages.yml")
+@ConfigSection("configuration")
+@ConfigFile("config.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MessageValue implements ConfigurationInjectable {
+public final class ConfigValue implements ConfigurationInjectable {
 
-    @Getter private static final MessageValue instance = new MessageValue();
+    @Getter private static final ConfigValue instance = new ConfigValue();
 
-    public static <T> T get(Function<MessageValue, T> function) {
+    @ConfigField("time") private int minutes;
+    @ConfigField("minPlayers") private int minPlayers;
+
+    @ConfigField("sound") private String sortingSound;
+    @ConfigField("winSound") private String winSound;
+
+    public static <T> T get(Function<ConfigValue, T> function) {
         return function.apply(instance);
     }
 

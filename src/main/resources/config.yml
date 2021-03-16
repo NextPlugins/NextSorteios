@@ -1,0 +1,45 @@
+#      _   _           _     _____  _             _                    #
+#     | \ | |         | |   |  __ \| |           (_)                   #
+#     |  \| | _____  _| |_  | |__) | |_   _  __ _ _ _ __  ___          #
+#     | . ` |/ _ \ \/ / __| |  ___/| | | | |/ _` | | '_ \/ __|         #
+#     | |\  |  __/>  <| |_  | |    | | |_| | (_| | | | | \__ \         #
+#     |_| \_|\___/_/\_\\__| |_|    |_|\__,_|\__, |_|_| |_|___/         #
+#                                           __/ |                      #
+#                                          |___/                       #
+#                          Servidor de Suporte                         #
+#                         discord.gg/JtTN7E6A2q                        #
+
+configuration:
+  # Tempo em minutos
+  # Irá sortear um prêmio aleatório a cada x minutos
+  time: 180
+  # Jogadores online mínimos para iniciar um sorteio
+  minPlayers: 30
+  # Som que irá tocar quando iniciar o sorteio
+  # Cheque a lista de sons para sua versão do servidor
+  # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
+  # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
+  # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
+  sound: ANVIL_FALL
+  # Som que irá tocar quando sortear um vencedor
+  # Cheque a lista de sons para sua versão do servidor
+  # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
+  # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
+  # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
+  winSound: ENDERDRAGON_GROWL
+
+messages:
+  sorting:
+    title: '&6&knextoprugins<nl>&fProcurando um sortudo para receber um &eprêmio'
+    # Tempo em ticks
+    # 1 segundo possui 20 ticks
+    time: 5
+  sorted:
+    title: '&6Temos um vencedor!<nl>&e@player &frecebeu @prize&e!'
+    # Tempo em ticks
+    # 1 segundo possui 20 ticks
+    time: 100
+  winMessage:
+    - ''
+    - "&6&LSORTEIO &fVocê &evenceu &fum sorteio e recebeu &e'&f@prize&e'"
+    - ''

@@ -13,7 +13,6 @@ import java.util.Set;
  */
 public class PrizeManager {
 
-    @Getter private static final PrizeManager instance = new PrizeManager().init();
     @Getter private Set<Prize> prizes;
 
     public PrizeManager init() {
