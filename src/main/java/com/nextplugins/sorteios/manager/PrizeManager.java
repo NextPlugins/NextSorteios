@@ -16,7 +16,10 @@ public class PrizeManager {
     @Getter private List<Prize> prizes;
 
     public void init() {
-        prizes = PrizeParser.parseListSection(PrizesValue.get(PrizesValue::prizeSection));
+
+        PrizeParser prizeParser = new PrizeParser();
+        prizes = prizeParser.parseListSection(PrizesValue.get(PrizesValue::prizeSection));
+
     }
 
 }

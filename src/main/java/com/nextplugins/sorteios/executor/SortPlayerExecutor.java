@@ -23,12 +23,12 @@ public final class SortPlayerExecutor implements Runnable {
 
     private static final Random RANDOM = new Random();
 
+    private final int maxExecutes;
+    private int executes = 0;
+
     public static void createDefault(Plugin plugin, int maxExecutes) {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new SortPlayerExecutor(maxExecutes), 0L, 10L * maxExecutes);
     }
-
-    private final int maxExecutes;
-    private int executes = 0;
 
     @Override
     public void run() {

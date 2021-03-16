@@ -13,20 +13,20 @@ import java.util.stream.Collectors;
  * Github: https://github.com/Yuhtin
  */
 
-public class PrizeParser {
+public final class PrizeParser {
 
-    public static List<Prize> parseListSection(ConfigurationSection section) {
+    public List<Prize> parseListSection(ConfigurationSection section) {
 
         return section.getKeys(false)
                 .stream()
                 .map(section::getConfigurationSection)
                 .filter(Objects::nonNull)
-                .map(PrizeParser::parseSection)
+                .map(this::parseSection)
                 .collect(Collectors.toList());
 
     }
 
-    public static Prize parseSection(ConfigurationSection section) {
+    public Prize parseSection(ConfigurationSection section) {
 
         return Prize.builder()
                 .coloredName(ColorUtils.colored(section.getString("coloredName")))
