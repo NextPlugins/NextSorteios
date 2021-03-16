@@ -1,0 +1,20 @@
+package com.nextplugins.sorteios.api;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * @author Yuhtin
+ * Github: https://github.com/Yuhtin
+ */
+
+@Data
+@Builder
+public class Sort {
+
+    private final String coloredName;
+    private final List<String> commands;
+
+}

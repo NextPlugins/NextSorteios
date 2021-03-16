@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+
+    id 'me.bristermitten.pdm' version '0.0.30'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+
+    id 'net.minecrell.plugin-yml.bukkit' version '0.3.0'
+}
+
+group = 'com.nextplugins'
+version = '1.0.0'
+
+tasks.build.dependsOn('pdm', 'shadowJar')
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+
+    // spigot
+
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://oss.sonatype.org/content/groups/public/' }
+
+    // libs
+
+    maven { url = 'https://repo.codemc.org/repository/maven-public' }
+    maven { url = 'https://repo.citizensnpcs.co/' }
+
+    maven { url = 'https://jitpack.io/' }
+}
+
+dependencies {
+
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+
+    implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
+    implementation 'org.bstats:bstats-bukkit:1.8'
+
+    def lombok = 'org.projectlombok:lombok:1.18.16'
+    compileOnly lombok
+    annotationProcessor lombok
+
+}
+
+bukkit {
+    main = 'com.nextplugins.sorteios.NextSorteios'
+    authors = ['Henry_Fabio', 'Eike', 'Gabriel Santos', 'Yuhtin']
+    website = 'https://github.com/NextPlugins'
+    version = "${project.version}"
+}
+
+shadowJar {
+    archiveName("${project.name}-${project.version}.jar")
+    relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.economy.libs.configinjector'
+    relocate 'org.bstats', 'com.nextplugins.economy.libs.bstats'
+}
+
+compileJava {
+    options.encoding('UTF-8')
+
+    sourceCompatibility('1.8')
+    targetCompatibility('1.8')
+}
