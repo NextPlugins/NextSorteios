@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e038c86887cc448fa6bb4431948962e3)](https://app.codacy.com/gh/NextPlugins/NextSorteios?utm_source=github.com&utm_medium=referral&utm_content=NextPlugins/NextSorteios&utm_campaign=Badge_Grade_Settings)
 
-Um simples sistema de sorteio de recompensas para os jogadores online na hora o sorteio for executado.
+Um simples sistema de sorteio de prêmios aleatórios configurados na `prizes.yml`, para os jogadores online no momento.
 
 ## Download
 
