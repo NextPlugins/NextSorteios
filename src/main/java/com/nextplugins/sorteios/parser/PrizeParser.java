@@ -1,6 +1,7 @@
 package com.nextplugins.sorteios.parser;
 
-import com.nextplugins.sorteios.api.Prize;
+import com.nextplugins.sorteios.NextSorteios;
+import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.utils.ColorUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public final class PrizeParser {
 
     public List<Prize> parseListSection(ConfigurationSection section) {
+
+        if (section == null) NextSorteios.getInstance().getLogger().info("foda");
 
         return section.getKeys(false)
                 .stream()

@@ -18,7 +18,7 @@ public final class ConfigurationRegistry {
         configurationInjector.saveDefaultConfiguration(
                 plugin,
                 "config.yml",
-                "inventories.yml"
+                "prizes.yml"
         );
 
         configurationInjector.injectConfiguration(

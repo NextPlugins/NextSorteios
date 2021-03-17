@@ -9,7 +9,7 @@ plugins {
 group = 'com.nextplugins'
 version = '1.0.0'
 
-tasks.build.dependsOn('pdm', 'shadowJar')
+tasks.build.dependsOn('shadowJar')
 
 repositories {
     mavenCentral()
@@ -21,6 +21,9 @@ repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 
+    // libs
+
+    maven { url = 'https://repo.codemc.org/repository/maven-public' }
     maven { url = 'https://jitpack.io/' }
 }
 
@@ -42,6 +45,13 @@ bukkit {
     authors = ['Henry_Fabio', 'Eike', 'Gabriel Santos', 'Yuhtin']
     website = 'https://github.com/NextPlugins'
     version = "${project.version}"
+    commands {
+        sortear {
+            description = 'Sortear algum prêmio aleatório'
+            aliases = ['sorteio']
+            permission = 'nextsorteios.sort'
+        }
+    }
 }
 
 shadowJar {

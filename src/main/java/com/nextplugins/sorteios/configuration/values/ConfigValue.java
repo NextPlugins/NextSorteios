@@ -22,7 +22,6 @@ public final class ConfigValue implements ConfigurationInjectable {
 
     @Getter private static final ConfigValue instance = new ConfigValue();
 
-    @ConfigField("time") private int minutes;
     @ConfigField("minPlayers") private int minPlayers;
     @ConfigField("executes") private int executes;
 

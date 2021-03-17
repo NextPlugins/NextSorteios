@@ -1,6 +1,6 @@
 package com.nextplugins.sorteios.listener;
 
-import com.nextplugins.sorteios.api.Prize;
+import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
@@ -33,7 +33,10 @@ public class PlayerWinSortListener implements Listener {
         }
 
         int time = MessagesValue.get(MessagesValue::sortedTime) / 3;
-        String message = MessagesValue.get(MessagesValue::sortedTitle).replace("@player", player.getName());
+        String message = MessagesValue.get(MessagesValue::sortedTitle)
+                .replace("@player", player.getName())
+                .replace("@prize", prize.getColoredName());
+
         Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::winSound));
 
         MessageUtils.sendSoundAndTitle(message, sound, time);

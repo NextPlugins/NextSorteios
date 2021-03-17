@@ -1,5 +1,6 @@
-package com.nextplugins.sorteios.utils;
+package com.nextplugins.sorteios.api.general;
 
+import com.nextplugins.sorteios.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -40,8 +41,6 @@ public class TitleAPI {
         String[] split = message.split("<nl>");
         String title = ColorUtils.colored(split[0]);
         String subtitle = ColorUtils.colored(split[1]);
-
-        //sendTitlePacket(player, fadeIn, stay, fadeOut, title, "TIMES");
 
         return new Object[] {
                 buildPacket(title, "TITLE", fadeIn, stay, fadeOut),

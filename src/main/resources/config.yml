@@ -9,10 +9,15 @@
 #                          Servidor de Suporte                         #
 #                         discord.gg/JtTN7E6A2q                        #
 
+######### ATENÇÃO #########
+# Caso queira executar o sorteio em x horario e dia
+# utilize o nosso plugin NextTasks, ele automatiza vários comandos
+# coloque a hora e o dia que você quiser, e ponha o comando /sortear
+# logo, ele irá executar o sorteio (caso tenha os jogadores mínimos)
+# para forçar o início de um sorteio sem os jogadores mínimos,
+# utilize '/sortear force' assim irá forçar o início de um sorteio
+
 configuration:
-  # Tempo em minutos
-  # Irá sortear um prêmio aleatório a cada x minutos
-  time: 180
   # Jogadores online mínimos para iniciar um sorteio
   minPlayers: 30
   # Quantas vezes irá enviar o título de sorteando
@@ -25,7 +30,7 @@ configuration:
   # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
   # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
   # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
-  sound: ANVIL_FALL
+  sound: NOTE_PLING
   # Som que irá tocar quando sortear um vencedor
   # Cheque a lista de sons para sua versão do servidor
   # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
@@ -43,7 +48,7 @@ messages:
     title: '&6Temos um vencedor!<nl>&e@player &frecebeu @prize&e!'
     # Tempo em ticks
     # 1 segundo possui 20 ticks
-    time: 100
+    time: 200
   winMessage:
     - ''
     - "&6&LSORTEIO &fVocê &evenceu &fum sorteio e recebeu &e'&f@prize&e'"

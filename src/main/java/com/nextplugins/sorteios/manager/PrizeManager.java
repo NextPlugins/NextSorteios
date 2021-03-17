@@ -1,6 +1,6 @@
 package com.nextplugins.sorteios.manager;
 
-import com.nextplugins.sorteios.api.Prize;
+import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.configuration.values.PrizesValue;
 import com.nextplugins.sorteios.parser.PrizeParser;
 import lombok.Getter;

@@ -1,21 +1,15 @@
 package com.nextplugins.sorteios.executor;
 
-import com.nextplugins.sorteios.NextSorteios;
-import com.nextplugins.sorteios.api.Prize;
-import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
+import com.nextplugins.sorteios.api.general.TitleAPI;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
-import com.nextplugins.sorteios.manager.PrizeManager;
+import com.nextplugins.sorteios.utils.ColorUtils;
 import com.nextplugins.sorteios.utils.MessageUtils;
-import com.nextplugins.sorteios.utils.SoundAPI;
-import com.nextplugins.sorteios.utils.TitleAPI;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-
-import java.util.Random;
+import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * @author Yuhtin
@@ -25,13 +19,21 @@ import java.util.Random;
 @RequiredArgsConstructor
 public final class SortPlayerExecutor implements Runnable {
 
-    private static final Random RANDOM = new Random();
+    private static int taskId;
 
     private final int maxExecutes;
     private int executes = 0;
+    private boolean sound;
 
-    public static void createDefault(Plugin plugin, int maxExecutes) {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new SortPlayerExecutor(maxExecutes), 0L, 10L * maxExecutes);
+    public static void createDefault(Plugin plugin, int maxExecutes) throws IllegalStateException {
+
+        if (taskId != 0) throw new IllegalStateException(ColorUtils.colored("&cJá existe um sorteio acontecendo."));
+
+        taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(
+                plugin, new SortPlayerExecutor(maxExecutes),
+                0L, 10L
+        ).getTaskId();
+
     }
 
     @Override
@@ -39,27 +41,29 @@ public final class SortPlayerExecutor implements Runnable {
 
         if (executes > this.maxExecutes) {
 
-            PrizeManager prizeManager = NextSorteios.getInstance().getPrizeManager();
+            SelectWinnerExecutor.createDefault().run();
 
-            int randomNumberPlayer = RANDOM.nextInt(Bukkit.getOnlinePlayers().size());
-            int randomNumberPrizes = RANDOM.nextInt(prizeManager.getPrizes().size());
+            BukkitScheduler scheduler = Bukkit.getScheduler();
+            scheduler.cancelTask(taskId);
+            taskId = 0;
 
-            Player player = (Player) Bukkit.getOnlinePlayers().toArray()[randomNumberPlayer];
-            Prize prize = prizeManager.getPrizes().get(randomNumberPrizes);
-
-            if (player == null || prize == null) return;
-
-            Bukkit.getPluginManager().callEvent(new SortedPlayerEvent(player, prize));
             return;
 
         }
 
         int time = MessagesValue.get(MessagesValue::sortingTime) / 3;
         String message = MessagesValue.get(MessagesValue::sortingTitle);
-        Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::sortingSound));
+        Object[] titlePackets = TitleAPI.buildTitlePackets(message, time, time, time);
 
-        MessageUtils.sendSoundAndTitle(message, sound, time);
+        // Don't flood player with sounds (one sound per second)
+        if (sound) {
 
+            Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::sortingSound));
+            MessageUtils.sendSoundAndTitle(titlePackets, sound);
+
+        } else Bukkit.getOnlinePlayers().forEach(target -> TitleAPI.sendTitlePacket(target, titlePackets));
+
+        sound ^= true;
         ++executes;
 
     }

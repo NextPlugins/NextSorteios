@@ -1,4 +1,4 @@
-package com.nextplugins.sorteios.api;
+package com.nextplugins.sorteios.api.prize;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,5 +1,6 @@
 package com.nextplugins.sorteios.configuration.values;
 
+import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigSection;
 import com.henryfabio.minecraft.configinjector.common.annotations.TranslateColors;
@@ -15,14 +16,13 @@ import java.util.function.Function;
 @Getter
 @TranslateColors
 @Accessors(fluent = true)
-@ConfigSection("premios")
 @ConfigFile("prizes.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PrizesValue implements ConfigurationInjectable {
 
     @Getter private static final PrizesValue instance = new PrizesValue();
 
-    @ConfigSection("") private ConfigurationSection prizeSection;
+    @ConfigField("premios") private ConfigurationSection prizeSection;
 
     public static <T> T get(Function<PrizesValue, T> function) {
         return function.apply(instance);

@@ -1,6 +1,6 @@
 package com.nextplugins.sorteios.api.events.sorted;
 
-import com.nextplugins.sorteios.api.Prize;
+import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.api.events.SortEvent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
