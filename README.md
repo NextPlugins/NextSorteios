@@ -4,6 +4,11 @@
 
 Um simples sistema de sorteio de prêmios aleatórios configurados na `prizes.yml`, para os jogadores online no momento.
 
+## Comandos
+|Comando           |Descrição            |Permissão        |
+|------------------|---------------------|-----------------|
+|/sortear [force]  |Iniciar um sorteio   |`nextsorteios.sort`|
+
 ## Download
 
 Você pode encontrar o plugin pronto para baixar [**aqui**](https://github.com/NextPlugins/NextSorteios/releases), ou se você quiser, pode optar por clonar o repositório e dar
