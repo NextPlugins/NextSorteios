@@ -1,6 +1,6 @@
 package com.nextplugins.sorteios.executor;
 
-import com.nextplugins.sorteios.api.general.TitleAPI;
+import com.nextplugins.sorteios.utils.TitleUtils;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
 import com.nextplugins.sorteios.utils.ColorUtils;
@@ -53,7 +53,7 @@ public final class SortPlayerExecutor implements Runnable {
 
         int time = MessagesValue.get(MessagesValue::sortingTime) / 3;
         String message = MessagesValue.get(MessagesValue::sortingTitle);
-        Object[] titlePackets = TitleAPI.buildTitlePackets(message, time, time, time);
+        Object[] titlePackets = TitleUtils.buildTitlePackets(message, time, time, time);
 
         // Don't flood player with sounds (one sound per second)
         if (sound) {
@@ -61,7 +61,7 @@ public final class SortPlayerExecutor implements Runnable {
             Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::sortingSound));
             MessageUtils.sendSoundAndTitle(titlePackets, sound);
 
-        } else Bukkit.getOnlinePlayers().forEach(target -> TitleAPI.sendTitlePacket(target, titlePackets));
+        } else Bukkit.getOnlinePlayers().forEach(target -> TitleUtils.sendTitlePacket(target, titlePackets));
 
         sound ^= true;
         ++executes;

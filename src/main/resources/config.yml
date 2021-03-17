@@ -40,7 +40,7 @@ configuration:
 
 messages:
   sorting:
-    title: '&6&knextoprugins<nl>&fProcurando um sortudo para receber um &eprêmio'
+    title: '&6&knextoprugins<nl>&fProcurando algum sortudo para receber um &eprêmio'
     # Tempo em ticks
     # 1 segundo possui 20 ticks
     time: 5

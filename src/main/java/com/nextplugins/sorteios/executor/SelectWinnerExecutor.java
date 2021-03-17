@@ -4,7 +4,6 @@ import com.nextplugins.sorteios.NextSorteios;
 import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
 import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.manager.PrizeManager;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

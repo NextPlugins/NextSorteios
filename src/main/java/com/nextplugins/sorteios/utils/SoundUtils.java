@@ -1,4 +1,4 @@
-package com.nextplugins.sorteios.api.general;
+package com.nextplugins.sorteios.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  */
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class SoundAPI {
+public final class SoundUtils {
 
     public static void sendSound(Player player, Sound sound) {
         sendSound(player, sound, 0.5f, 1f);

@@ -1,6 +1,5 @@
-package com.nextplugins.sorteios.api.general;
+package com.nextplugins.sorteios.utils;
 
-import com.nextplugins.sorteios.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,7 +10,7 @@ import java.util.Arrays;
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
-public class TitleAPI {
+public class TitleUtils {
 
     public static void sendTitle(Player player, String message, int fadeIn, int stay, int fadeOut) {
         try {
