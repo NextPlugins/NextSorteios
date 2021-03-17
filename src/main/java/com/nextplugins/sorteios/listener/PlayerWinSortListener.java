@@ -32,14 +32,18 @@ public class PlayerWinSortListener implements Listener {
 
         }
 
+        MessagesValue.get(MessagesValue::winMessage).stream()
+                .map(line -> line.replace("@prize", prize.getColoredName()))
+                .forEach(player::sendMessage);
+
         int time = MessagesValue.get(MessagesValue::sortedTime) / 3;
-        String message = MessagesValue.get(MessagesValue::sortedTitle)
+        String title = MessagesValue.get(MessagesValue::sortedTitle)
                 .replace("@player", player.getName())
                 .replace("@prize", prize.getColoredName());
 
         Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::winSound));
 
-        MessageUtils.sendSoundAndTitle(message, sound, time);
+        MessageUtils.sendSoundAndTitle(title, sound, time);
 
     }
 
