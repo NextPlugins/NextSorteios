@@ -1,6 +1,7 @@
 premios:
   premio1:
     coloredName: '&95x Key NextPlugins'
+    cantSortPermission: sort.ban.premio1
     commands:
       - 'givekey @player nextplugins 5'
       - 'give @player diamond_pickaxe'

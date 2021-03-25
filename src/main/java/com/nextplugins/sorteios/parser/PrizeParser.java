@@ -18,7 +18,7 @@ public final class PrizeParser {
 
     public List<Prize> parseListSection(ConfigurationSection section) {
 
-        if (section == null) NextSorteios.getInstance().getLogger().info("foda");
+        if (section == null) throw new IllegalArgumentException("Section inexistente!");
 
         return section.getKeys(false)
                 .stream()
@@ -34,6 +34,7 @@ public final class PrizeParser {
         return Prize.builder()
                 .coloredName(ColorUtils.colored(section.getString("coloredName")))
                 .commands(section.getStringList("commands"))
+                .sortBanPermission(section.getString("cantSortPermission", "nextsorteios.sort"))
                 .build();
 
     }

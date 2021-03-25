@@ -9,7 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * @author Yuhtin
@@ -25,11 +27,17 @@ public final class SelectWinnerExecutor implements Runnable {
     public void run() {
         PrizeManager prizeManager = NextSorteios.getInstance().getPrizeManager();
 
-        int randomNumberPlayer = RANDOM.nextInt(Bukkit.getOnlinePlayers().size());
         int randomNumberPrizes = RANDOM.nextInt(prizeManager.getPrizes().size());
 
-        Player player = (Player) Bukkit.getOnlinePlayers().toArray()[randomNumberPlayer];
         Prize prize = prizeManager.getPrizes().get(randomNumberPrizes);
+
+        final List<Player> onlinePlayers = Bukkit.getOnlinePlayers()
+                .stream()
+                .filter(value -> !value.hasPermission(prize.getSortBanPermission()))
+                .collect(Collectors.toList());
+
+        int randomNumberPlayer = RANDOM.nextInt(onlinePlayers.size());
+        Player player = (Player) onlinePlayers.toArray()[randomNumberPlayer];
 
         if (player == null || prize == null) return;
 

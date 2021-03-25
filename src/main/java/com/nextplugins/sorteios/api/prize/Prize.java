@@ -15,6 +15,7 @@ import java.util.List;
 public class Prize {
 
     private final String coloredName;
+    private final String sortBanPermission;
     private final List<String> commands;
 
 }
