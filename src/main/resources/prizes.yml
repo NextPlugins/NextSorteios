@@ -1,6 +1,7 @@
 premios:
   premio1:
     coloredName: '&95x Key NextPlugins'
+    # Se o jogador tiver essa permissão, não irá participar do sorteio
     cantSortPermission: sort.ban.premio1
     commands:
       - 'givekey @player nextplugins 5'
