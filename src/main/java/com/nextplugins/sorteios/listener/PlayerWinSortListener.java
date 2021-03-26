@@ -1,7 +1,8 @@
 package com.nextplugins.sorteios.listener;
 
+import com.nextplugins.sorteios.NextSorteios;
 import com.nextplugins.sorteios.api.prize.Prize;
-import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
+import com.nextplugins.sorteios.api.events.sorted.AsyncSortedPlayerEvent;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
 import com.nextplugins.sorteios.utils.MessageUtils;
@@ -18,19 +19,23 @@ import org.bukkit.event.Listener;
 public class PlayerWinSortListener implements Listener {
 
     @EventHandler
-    public void onPlayerWin(SortedPlayerEvent event) {
+    public void onPlayerWin(AsyncSortedPlayerEvent event) {
 
         Player player = event.getPlayer();
         Prize prize = event.getPrize();
 
-        for (String command : prize.getCommands()) {
+        Bukkit.getScheduler().runTask(NextSorteios.getInstance(), () -> {
 
-            Bukkit.dispatchCommand(
-                    Bukkit.getConsoleSender(),
-                    command.replace("@player", player.getName())
-            );
+            for (String command : prize.getCommands()) {
 
-        }
+                Bukkit.dispatchCommand(
+                        Bukkit.getConsoleSender(),
+                        command.replace("@player", player.getName())
+                );
+
+            }
+
+        });
 
         MessagesValue.get(MessagesValue::winMessage).stream()
                 .map(line -> line.replace("@prize", prize.getColoredName()))

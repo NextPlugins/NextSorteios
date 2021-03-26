@@ -13,9 +13,10 @@ import org.bukkit.entity.Player;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SortedPlayerEvent extends SortEvent {
+public class AsyncSortedPlayerEvent extends SortEvent {
 
     private final Player player;
     private final Prize prize;
+    private final boolean async;
 
 }

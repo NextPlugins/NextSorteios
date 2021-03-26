@@ -1,7 +1,7 @@
 package com.nextplugins.sorteios.executor;
 
 import com.nextplugins.sorteios.NextSorteios;
-import com.nextplugins.sorteios.api.events.sorted.SortedPlayerEvent;
+import com.nextplugins.sorteios.api.events.sorted.AsyncSortedPlayerEvent;
 import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.manager.PrizeManager;
 import lombok.NoArgsConstructor;
@@ -42,7 +42,7 @@ public final class SelectWinnerExecutor implements Runnable {
         if (player == null || prize == null) return;
 
         PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.callEvent(new SortedPlayerEvent(player, prize));
+        pluginManager.callEvent(new AsyncSortedPlayerEvent(player, prize, true));
     }
 
 }
