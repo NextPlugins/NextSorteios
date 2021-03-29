@@ -4,8 +4,10 @@ import com.nextplugins.sorteios.NextSorteios;
 import com.nextplugins.sorteios.api.events.sorted.AsyncSortedPlayerEvent;
 import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.manager.PrizeManager;
+import com.nextplugins.sorteios.utils.MessageUtils;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
@@ -35,6 +37,18 @@ public final class SelectWinnerExecutor implements Runnable {
                 .stream()
                 .filter(value -> !value.hasPermission(prize.getSortBanPermission()))
                 .collect(Collectors.toList());
+
+        if (onlinePlayers.isEmpty()) {
+
+            MessageUtils.sendSoundAndTitle(
+                    "&c&LERRO{nl}&fNão tem nenhum jogador elegível para o prêmio",
+                    Sound.ENTITY_CREEPER_HURT,
+                    90
+            );
+
+            return;
+
+        }
 
         int randomNumberPlayer = RANDOM.nextInt(onlinePlayers.size());
         Player player = (Player) onlinePlayers.toArray()[randomNumberPlayer];
