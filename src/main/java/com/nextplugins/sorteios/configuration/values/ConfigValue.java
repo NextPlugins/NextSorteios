@@ -26,6 +26,7 @@ public final class ConfigValue implements ConfigurationInjectable {
     @ConfigField("executes") private int executes;
 
     @ConfigField("sound") private String sortingSound;
+    @ConfigField("error") private String errorSound;
     @ConfigField("winSound") private String winSound;
 
     public static <T> T get(Function<ConfigValue, T> function) {

@@ -25,17 +25,15 @@ configuration:
   # Atenção: O title é enviado a cada 0.5 segundos
   # caso coloque 20 executes, irá demorar 10 segundos para sortear
   executes: 20
+  # Cheque a lista de sons para sua versão do servidor
+  # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
+  # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
+  # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
   # Som que irá tocar quando iniciar o sorteio
-  # Cheque a lista de sons para sua versão do servidor
-  # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
-  # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
-  # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
   sound: NOTE_PLING
-  # Som que irá tocar quando sortear um vencedor
-  # Cheque a lista de sons para sua versão do servidor
-  # Versão 1.8.8 https://helpch.at/docs/1.8.8/index.html?org/bukkit/Sound.html
-  # Versão 1.12.2 https://helpch.at/docs/1.12.2/org/bukkit/Sound.html
-  # Versão 1.16.4 https://helpch.at/docs/1.16.4/org/bukkit/Sound.html
+  # Som de quando não tiver nenhum jogador elegivel para sortear
+  error: CAT_MEOW
+  # Som de quando alguém ganhar
   winSound: ENDERDRAGON_GROWL
 
 messages:

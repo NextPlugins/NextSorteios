@@ -3,6 +3,7 @@ package com.nextplugins.sorteios.executor;
 import com.nextplugins.sorteios.NextSorteios;
 import com.nextplugins.sorteios.api.events.sorted.AsyncSortedPlayerEvent;
 import com.nextplugins.sorteios.api.prize.Prize;
+import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.manager.PrizeManager;
 import com.nextplugins.sorteios.utils.MessageUtils;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,7 @@ public final class SelectWinnerExecutor implements Runnable {
 
             MessageUtils.sendSoundAndTitle(
                     "&c&LERRO{nl}&fNão tem nenhum jogador elegível para o prêmio",
-                    Sound.ENTITY_CREEPER_HURT,
+                    Sound.valueOf(ConfigValue.get(ConfigValue::errorSound)),
                     90
             );
 
