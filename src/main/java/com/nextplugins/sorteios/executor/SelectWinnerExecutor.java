@@ -42,7 +42,7 @@ public final class SelectWinnerExecutor implements Runnable {
         if (onlinePlayers.isEmpty()) {
 
             MessageUtils.sendSoundAndTitle(
-                    "&c&LERRO{nl}&fNão tem nenhum jogador elegível para o prêmio",
+                    "&c&LERRO<nl>&fNão tem nenhum jogador elegível para o prêmio",
                     Sound.valueOf(ConfigValue.get(ConfigValue::errorSound)),
                     90
             );
