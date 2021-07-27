@@ -29,13 +29,12 @@ public final class NextSorteios extends JavaPlugin {
         this.prizeManager.init();
 
         PluginCommand sortCommand = this.getCommand("sortear");
-        if (sortCommand != null) sortCommand.setExecutor(new SortCommand());
+        if (sortCommand != null) sortCommand.setExecutor(new SortCommand(this));
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerWinSortListener(), this);
 
         this.getLogger().info("Plugin started successfully");
-
     }
 
 }
