@@ -6,9 +6,9 @@ import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.manager.PrizeManager;
 import com.nextplugins.sorteios.utils.MessageUtils;
+import com.nextplugins.sorteios.utils.SoundUtils;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
@@ -43,7 +43,7 @@ public final class SelectWinnerExecutor implements Runnable {
 
             MessageUtils.sendSoundAndTitle(
                     "&c&LERRO<nl>&fNão tem nenhum jogador elegível para o prêmio",
-                    Sound.valueOf(ConfigValue.get(ConfigValue::errorSound)),
+                    SoundUtils.typeOf(ConfigValue.get(ConfigValue::errorSound)),
                     90
             );
 

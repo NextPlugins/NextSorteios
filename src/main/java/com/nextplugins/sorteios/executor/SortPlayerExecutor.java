@@ -1,15 +1,15 @@
 package com.nextplugins.sorteios.executor;
 
+import com.nextplugins.sorteios.utils.SoundUtils;
 import com.nextplugins.sorteios.utils.TitleUtils;
 import com.nextplugins.sorteios.configuration.values.ConfigValue;
 import com.nextplugins.sorteios.configuration.values.MessagesValue;
 import com.nextplugins.sorteios.utils.ColorUtils;
 import com.nextplugins.sorteios.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * @author Yuhtin
@@ -43,23 +43,23 @@ public final class SortPlayerExecutor implements Runnable {
 
             SelectWinnerExecutor.createDefault().run();
 
-            BukkitScheduler scheduler = Bukkit.getScheduler();
+            val scheduler = Bukkit.getScheduler();
             scheduler.cancelTask(taskId);
-            taskId = 0;
 
+            taskId = 0;
             return;
 
         }
 
-        int time = MessagesValue.get(MessagesValue::sortingTime) / 3;
-        String message = MessagesValue.get(MessagesValue::sortingTitle);
-        Object[] titlePackets = TitleUtils.buildTitlePackets(message, time, time, time);
+        val time = MessagesValue.get(MessagesValue::sortingTime) / 3;
+        val message = MessagesValue.get(MessagesValue::sortingTitle);
+        val titlePackets = TitleUtils.buildTitlePackets(message, time, time, time);
 
         // Don't flood player with sounds (one sound per second)
         if (sound) {
 
-            Sound sound = Sound.valueOf(ConfigValue.get(ConfigValue::sortingSound));
-            MessageUtils.sendSoundAndTitle(titlePackets, sound);
+            val sortingSound = SoundUtils.typeOf(ConfigValue.get(ConfigValue::sortingSound));
+            MessageUtils.sendSoundAndTitle(titlePackets, sortingSound);
 
         } else Bukkit.getOnlinePlayers().forEach(target -> TitleUtils.sendTitlePacket(target, titlePackets));
 

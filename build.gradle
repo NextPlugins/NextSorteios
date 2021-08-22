@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
 
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
 
     implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
     implementation 'org.bstats:bstats-bukkit:1.8'
@@ -44,6 +44,7 @@ bukkit {
     main = 'com.nextplugins.sorteios.NextSorteios'
     authors = ['Henry_Fabio', 'Eike', 'Gabriel Santos', 'Yuhtin']
     website = 'https://github.com/NextPlugins'
+    apiVersion = '1.13'
     version = "${project.version}"
     commands {
         sortear {
