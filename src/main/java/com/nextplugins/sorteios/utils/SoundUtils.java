@@ -26,7 +26,7 @@ public final class SoundUtils {
         try {
             return Sound.valueOf(soundName);
         } catch (Exception exception) {
-            NextSorteios.getInstance().getLogger().severe("Você está o som '" + soundName + "', porem ele não existe nesta versão, mude-o na config.yml");
+            NextSorteios.getInstance().getLogger().severe("Você está usando o som '" + soundName + "', porém ele não existe nesta versão, mude-o na config.yml");
             return Sound.BLOCK_NOTE_BLOCK_PLING;
         }
     }

@@ -57,8 +57,8 @@ bukkit {
 
 shadowJar {
     archiveName("${project.name}-${project.version}.jar")
-    relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.economy.libs.configinjector'
-    relocate 'org.bstats', 'com.nextplugins.economy.libs.bstats'
+    relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.sorteios.libs.configinjector'
+    relocate 'org.bstats', 'com.nextplugins.sorteios.libs.bstats'
 }
 
 compileJava {
