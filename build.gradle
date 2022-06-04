@@ -1,20 +1,17 @@
 plugins {
     id 'java'
 
-    id 'com.github.johnrengelman.shadow' version '5.0.0'
-    id 'net.minecrell.plugin-yml.bukkit' version '0.3.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.5.1'
 
 }
 
-group = 'com.nextplugins'
-version = '1.0.5'
-
-tasks.build.dependsOn('shadowJar')
+group 'com.nextplugins'
+version '1.0.7'
 
 repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
 
     // spigot
 
@@ -29,12 +26,12 @@ repositories {
 
 dependencies {
 
-    compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 
     implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
-    implementation 'org.bstats:bstats-bukkit:1.8'
+    implementation 'org.bstats:bstats-bukkit:3.0.0'
 
-    def lombok = 'org.projectlombok:lombok:1.18.16'
+    def lombok = 'org.projectlombok:lombok:1.18.24'
     compileOnly lombok
     annotationProcessor lombok
 
@@ -44,7 +41,7 @@ bukkit {
     main = 'com.nextplugins.sorteios.NextSorteios'
     authors = ['Henry_Fabio', 'Eike', 'Gabriel Santos', 'Yuhtin']
     website = 'https://github.com/NextPlugins'
-    apiVersion = '1.13'
+    apiVersion = '1.18'
     version = "${project.version}"
     commands {
         sortear {
@@ -52,6 +49,12 @@ bukkit {
             aliases = ['sorteio']
             permission = 'nextsorteios.sort'
         }
+    }
+}
+
+tasks {
+    build {
+        dependsOn 'shadowJar'
     }
 }
 
