@@ -1,7 +1,7 @@
 package com.nextplugins.sorteios.api.events.sorted;
 
-import com.nextplugins.sorteios.api.prize.Prize;
 import com.nextplugins.sorteios.api.events.SortEvent;
+import com.nextplugins.sorteios.api.prize.Prize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.bukkit.entity.Player;
@@ -13,10 +13,9 @@ import org.bukkit.entity.Player;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AsyncSortedPlayerEvent extends SortEvent {
+public class SortedPlayerEvent extends SortEvent {
 
     private final Player player;
     private final Prize prize;
-    private final boolean async;
 
 }

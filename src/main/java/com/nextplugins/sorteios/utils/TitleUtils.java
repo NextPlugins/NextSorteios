@@ -4,102 +4,68 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 
 /**
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
-public class TitleUtils {
+public class TitleUtils implements ReflectionUtil {
 
-    public static void sendTitle(Player player, String message, int fadeIn, int stay, int fadeOut) {
+    private final GetTitle title;
+
+    private int in;
+    private int stay;
+    private int out;
+
+    public TitleUtils() {
+        int MAJOR_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].split("\\.")[1]);
+        title = MAJOR_VERSION < 10 ? oldTitle() : newTitle();
+    }
+
+    public interface GetTitle {
+        void send(Player player, String title, String subtitle, int in, int stay, int out);
+    }
+
+    public GetTitle getMethod() {
+        return title;
+    }
+
+    private void legacyMethod(Player player, String message, boolean isTitle) {
         try {
-            sendTitlePacket(player, buildTitlePackets(message, fadeIn, stay, fadeOut));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
+            Object e = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TIMES").get(null);
+            Object chatMessage = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + message + "\"}");
+            Constructor<?> subtitleConstructor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
+            Object titlePacket = subtitleConstructor.newInstance(e, chatMessage, in, stay, out);
 
-    public static void sendTitleToAll(String message, int fadeIn, int stay, int fadeOut) {
+            sendPacket(player, titlePacket);
 
-        Object[] packets = buildTitlePackets(message, fadeIn, stay, fadeOut);
-        try {
+            e = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField((isTitle ? "" : "SUB") + "TITLE").get(null);
+            chatMessage = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + message + "\"}");
+            subtitleConstructor = isTitle ?
+                getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0], getNMSClass("IChatBaseComponent")) :
+                getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
+            titlePacket = isTitle ?
+                subtitleConstructor.newInstance(e, chatMessage) :
+                subtitleConstructor.newInstance(e, chatMessage, Math.round((float) in / 20), Math.round((float) stay / 20), Math.round((float) out / 20));
 
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                sendTitlePacket(onlinePlayer, packets);
-            }
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-    }
-
-    public static Object[] buildTitlePackets(String message, int fadeIn, int stay, int fadeOut) {
-
-        String[] split = message.split("<nl>");
-        String title = ColorUtils.colored(split[0]);
-        String subtitle = ColorUtils.colored(split[1]);
-
-        return new Object[] {
-                buildPacket(title, "TITLE", fadeIn, stay, fadeOut),
-                buildPacket(subtitle, "SUBTITLE", fadeIn, stay, fadeOut)
-        };
-
-    }
-
-    public static void sendTitlePacket(Player player, Object[] packets) {
-        Arrays.stream(packets).forEach(packet -> sendPacket(player, packet));
-    }
-
-    private static void sendPacket(Player player, Object packet) {
-        try {
-            Object handle = player.getClass().getMethod("getHandle").invoke(player);
-            Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
-            playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
+            sendPacket(player, titlePacket);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static Object buildPacket(String message, String type, int fadeIn, int stay, int fadeOut) {
-
-        try {
-            Object component = getNMSClass("IChatBaseComponent")
-                    .getDeclaredClasses()[0]
-                    .getMethod("a", String.class)
-                    .invoke(null, "{\"text\":\"" + message + "\"}");
-
-            Constructor constructor = getNMSClass("PacketPlayOutTitle")
-                    .getConstructor(
-                            getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0],
-                            getNMSClass("IChatBaseComponent"),
-                            Integer.TYPE,
-                            Integer.TYPE,
-                            Integer.TYPE
-                    );
-
-            Object packet = constructor.newInstance(
-                    getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField(type).get(null),
-                    component, fadeIn, stay, fadeOut
-            );
-
-            return packet;
-
-        } catch (Exception ignored) {
-        }
-
-        return null;
+    private GetTitle oldTitle() {
+        return (player, title, subtitle, in, stay, out) -> {
+            this.in = in;
+            this.stay = stay;
+            this.out = out;
+            legacyMethod(player, title, true);
+            legacyMethod(player, subtitle, false);
+        };
     }
 
-    private static Class<?> getNMSClass(String name) {
-        String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        try {
-            return Class.forName("net.minecraft.server." + version + "." + name);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public GetTitle newTitle() {
+        return Player::sendTitle;
     }
 
 }
