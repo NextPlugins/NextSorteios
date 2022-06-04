@@ -29,7 +29,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 
     implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
-    implementation 'org.bstats:bstats-bukkit:3.0.0'
+    implementation 'org.bstats:bstats-bukkit:1.8'
 
     def lombok = 'org.projectlombok:lombok:1.18.24'
     compileOnly lombok
